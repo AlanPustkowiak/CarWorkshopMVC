@@ -5,11 +5,12 @@ using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
 using CarWorkshop.Application.CarWorkshop.Queries.GetCarWorkshopByEncodedName;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarWorkshop.MVC.Controllers
 {
-    public class CarWorkshopController : Controller
+    public class CarWorkshopController : Controller //TODO strona do dodawania roli dla użytowników
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
@@ -26,8 +27,10 @@ namespace CarWorkshop.MVC.Controllers
             return View(carWorkshops);
         }
 
+        [Authorize(Roles ="Owner")]
         public IActionResult Create()
         {
+            
             return View();
         }
 
@@ -43,6 +46,11 @@ namespace CarWorkshop.MVC.Controllers
         public async Task<IActionResult> Edit(string encodedName)
         {
             var dto = await _mediator.Send(new GetCarWorkshopByEncodedNameQuery(encodedName));
+
+            if (!dto.IsEditable)
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
 
             EditCarWorkshopCommand model = _mapper.Map<EditCarWorkshopCommand>(dto);
 
@@ -62,6 +70,7 @@ namespace CarWorkshop.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateCarWorkshopCommand command)
         {
             if (!ModelState.IsValid)
