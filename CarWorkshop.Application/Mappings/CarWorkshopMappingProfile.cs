@@ -17,6 +17,7 @@ namespace CarWorkshop.Application.Mappings
         public CarWorkshopMappingProfile(IUserContext userContext)
         {
             var user = userContext.GetCurrentUser();
+
             CreateMap<CarWorkshopDto, Domain.Entities.CarWorkshop>().ForMember(e => e.ContactDetails, opt => opt.MapFrom(src => new CarWorkshopContactDetails()
             {
                 City = src.City,
@@ -26,7 +27,7 @@ namespace CarWorkshop.Application.Mappings
             }));
 
             CreateMap<Domain.Entities.CarWorkshop, CarWorkshopDto>()
-                .ForMember(e => e.IsEditable, opt => opt.MapFrom(src => user != null && src.CreatedById == user.Id))
+                .ForMember(e => e.IsEditable, opt => opt.MapFrom(src => user != null && (src.CreatedById == user.Id || user.IsInRole("Moderator"))))
                 .ForMember(e => e.City, opt => opt.MapFrom(src => src.ContactDetails.City))
                 .ForMember(e => e.PhoneNumber, opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber))
                 .ForMember(e => e.PostalCode, opt => opt.MapFrom(src => src.ContactDetails.PostalCode))

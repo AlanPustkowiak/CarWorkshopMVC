@@ -4,9 +4,12 @@ using CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
 using CarWorkshop.Application.CarWorkshop.Queries.GetCarWorkshopByEncodedName;
+using CarWorkshop.MVC.ControllerExtensions;
+using CarWorkshop.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CarWorkshop.MVC.Controllers
 {
@@ -77,7 +80,10 @@ namespace CarWorkshop.MVC.Controllers
             {
                 return View(command);
             }
-            await _mediator.Send(command);
+            //await _mediator.Send(command);
+
+            this.SetNotification($"The {command.Name} carworkshop has been created!", "success");
+
             return RedirectToAction(nameof(Index));
         }
     }
