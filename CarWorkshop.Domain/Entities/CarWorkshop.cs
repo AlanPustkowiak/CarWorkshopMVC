@@ -21,6 +21,8 @@ namespace CarWorkshop.Domain.Entities
 
         public string EncodedName { get; private set; } = default!;
 
+        public List<CarWorkshopService> Services { get; set; } = new();
+
         public void SetEncodeName() => EncodedName = Name.Replace(" ", "-").ToLower();
     }
 }
