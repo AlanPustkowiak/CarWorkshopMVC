@@ -86,5 +86,20 @@ namespace CarWorkshop.MVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("CarWorkshop/CarWorkshopService")]
+        public async Task<IActionResult> CreateCarWorkshopService(CreateCarWorkshopCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _mediator.Send(command);
+
+            return Ok();
+        }
     }
 }

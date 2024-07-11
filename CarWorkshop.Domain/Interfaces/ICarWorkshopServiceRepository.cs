@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarWorkshop.Domain.Interfaces
 {
-    public interface ICarWorkshopService
+    public interface ICarWorkshopServiceRepository
     {
         Task Create(CarWorkshopService service);
     }
