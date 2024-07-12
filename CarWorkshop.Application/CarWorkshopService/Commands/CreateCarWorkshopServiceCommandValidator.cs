@@ -9,7 +9,7 @@ namespace CarWorkshop.Application.CarWorkshopService.Commands
 {
     public class CreateCarWorkshopServiceCommandValidator : AbstractValidator<CreateCarWorkshopServiceCommand>
     {
-        public CreateCarWorkshopServiceCommandValidator() //TODO gdzieś jest zła adnotacja zamiast do service jest do zwykłego validatora
+        public CreateCarWorkshopServiceCommandValidator() 
         {
             RuleFor(x => x.Description)
                 .NotEmpty().NotNull();

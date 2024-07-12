@@ -36,7 +36,7 @@ namespace CarWorkshop.Application.CarWorkshopService.Commands
             {
                 Description = request.Description,
                 Cost = request.Cost,
-                CarWorkshopId = dto.id
+                CarWorkshopId = dto.id,
             };
 
             await _carWorkshopServiceRepository.Create(carWorkshopService);
