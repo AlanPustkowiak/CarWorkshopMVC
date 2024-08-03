@@ -24,5 +24,11 @@
     <ProjectReference Include="..\CarWorkshop.Application\CarWorkshop.Application.csproj" />
     <ProjectReference Include="..\CarWorkshop.Infrastructure\CarWorkshop.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\js\CarWorkshop\Details.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>
